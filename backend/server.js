@@ -1,20 +1,13 @@
-const express = require('express');
-const { graphqlHTTP } = require('express-graphql');
-const { buildSchema } = require('graphql');
-const mongoose = require('mongoose');
-const cors = require('cors');
-
-// MongoDB Model
-const User = require('./models/User');
+import express from "express";
+import { graphqlHTTP } from 'express-graphql';
+import { buildSchema } from 'graphql';
+import cors from 'cors';
+import User from "./models/User.js";
+import connectToMongo from "./db.js";
 
 // Connect to MongoDB
-mongoose
-  .connect('mongodb://127.0.0.1:27017/mern_graphql', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log('MongoDB Connected'))
-  .catch((err) => console.error('MongoDB Connection Failed:', err));
+
+connectToMongo();
 
 // GraphQL Schema
 const schema = buildSchema(`
